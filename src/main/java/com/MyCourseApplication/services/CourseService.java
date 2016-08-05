@@ -3,6 +3,7 @@ package com.MyCourseApplication.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.MyCourseApplication.domain.Course;
 import com.MyCourseApplication.domain.User;
@@ -10,6 +11,7 @@ import com.MyCourseApplication.exceptions.ResourceNotFoundException;
 import com.MyCourseApplication.repositories.CourseRepository;
 import com.MyCourseApplication.repositories.UserRepository;
 
+@Service
 public class CourseService {
 
 	@Autowired

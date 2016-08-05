@@ -3,11 +3,12 @@ package com.MyCourseApplication.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.MyCourseApplication.domain.Topic;
 import com.MyCourseApplication.exceptions.ResourceNotFoundException;
 import com.MyCourseApplication.repositories.TopicRepository;
-
+@Service
 public class TopicService {
 
 	@Autowired

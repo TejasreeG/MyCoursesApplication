@@ -33,13 +33,13 @@ public class CourseController {
 	private CourseService courseService;
 	
 
-	/*@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Course> CreateCourse(@RequestBody Course course)throws Exception{
-		User user = userRepository.findone(course.getUser_name());
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Course> CreateCourse(@RequestBody Course course){
+		User user = userRepository.findOne(course.getUser_name());
 		course.getUsers().add(user);
 		Course savedCourse = courseRepository.save(course) ;
 		return new ResponseEntity<Course>(savedCourse,HttpStatus.CREATED);
-	}*/
+	}
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Course> getAll() throws Exception {
@@ -56,6 +56,12 @@ public class CourseController {
 		courseService.delete(cid);
 		return new ResponseEntity<HttpStatus>(HttpStatus.OK);
 	}
+	
+	@RequestMapping(method = RequestMethod.PUT)
+	public ResponseEntity<Course> UpdateUser(@RequestBody Course course)throws Exception{
+		Course updatedCourse = courseService.save(course);
+		return new ResponseEntity<Course>(updatedCourse, HttpStatus.OK);
+		}
 
 	@RequestMapping(value = "{c_id}/topics", method = RequestMethod.GET)
 	public ResponseEntity<Set<Topic>> getTopicsForCourse(@PathVariable("c_id") int cid) throws Exception {

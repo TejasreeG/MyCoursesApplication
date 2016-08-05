@@ -10,10 +10,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class,HibernateJpaAutoConfiguration.class})
-@EnableJpaRepositories(basePackages={"com.courseapp.repositories"})
-@EntityScan(basePackages={"com.MyCourseApplication.domain"})
-@ComponentScan(basePackages={"com.MyCourseApplication.exceptions","com.MyCourseApplication.controller","com.MyCourseApplication.validations","com.MyCourseApplication.services"})
 public class MyCourseApplication {
 
 	public static void main(String[] args) {
