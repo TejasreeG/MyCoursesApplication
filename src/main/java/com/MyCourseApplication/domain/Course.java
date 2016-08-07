@@ -5,6 +5,13 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+/**
+ * @author Tejasree
+ *
+ */
 
 @Entity
 @Table(name = "courses", schema = "mycourses_app")
@@ -13,19 +20,26 @@ public class Course implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int c_id;
+	
+	@NotNull(message = "CourseName is Required, It should not be Blank")
+	@Pattern(regexp="^[A-Z]+[a-z]*$", message = "Enter the Course Name with the first letter Capitalized and numbers or special charecters are not allowed ")
 	private String c_name;
 	private String c_description;
 	private String c_prereq;
+	@NotNull(message = "Course Duration is required, It should not be Blank")
 	private int c_duration;
+	
 	@Enumerated(EnumType.STRING)
+	@NotNull(message = "Skill Level is Required")
 	private SkillLevel skill_level;
+	
 	private LocalDateTime created_at;
 	private LocalDateTime changed_at;
 	private String user_name;
 
-	@OneToMany(mappedBy = "Courses", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
 	private Set<Topic> topic = new HashSet<Topic>();
 
 	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
@@ -120,28 +134,12 @@ public class Course implements Serializable {
 		this.user_name = user_name;
 	}
 
-	@Override
-	public String toString() {
-		return "Course [CourseID=" + c_id + ", CourseNAme=" + c_name + ", CourseDescription=" + c_description
-				+ ", CoursePreRequisite=" + c_prereq + ", CourseDuration=" + c_duration + ", SkillLevel=" + skill_level
-				+ ", CreatedAT=" + created_at + "UpdatedAt=" + changed_at + "]";
-	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((c_description == null) ? 0 : c_description.hashCode());
-		result = prime * result + c_duration;
 		result = prime * result + c_id;
-		result = prime * result + ((c_name == null) ? 0 : c_name.hashCode());
-		result = prime * result + ((c_prereq == null) ? 0 : c_prereq.hashCode());
-		result = prime * result + ((changed_at == null) ? 0 : changed_at.hashCode());
-		result = prime * result + ((created_at == null) ? 0 : created_at.hashCode());
-		result = prime * result + ((skill_level == null) ? 0 : skill_level.hashCode());
-		result = prime * result + ((topic == null) ? 0 : topic.hashCode());
-		result = prime * result + ((user_name == null) ? 0 : user_name.hashCode());
-		result = prime * result + ((users == null) ? 0 : users.hashCode());
 		return result;
 	}
 
@@ -154,53 +152,15 @@ public class Course implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Course other = (Course) obj;
-		if (c_description == null) {
-			if (other.c_description != null)
-				return false;
-		} else if (!c_description.equals(other.c_description))
-			return false;
-		if (c_duration != other.c_duration)
-			return false;
 		if (c_id != other.c_id)
 			return false;
-		if (c_name == null) {
-			if (other.c_name != null)
-				return false;
-		} else if (!c_name.equals(other.c_name))
-			return false;
-		if (c_prereq == null) {
-			if (other.c_prereq != null)
-				return false;
-		} else if (!c_prereq.equals(other.c_prereq))
-			return false;
-		if (changed_at == null) {
-			if (other.changed_at != null)
-				return false;
-		} else if (!changed_at.equals(other.changed_at))
-			return false;
-		if (created_at == null) {
-			if (other.created_at != null)
-				return false;
-		} else if (!created_at.equals(other.created_at))
-			return false;
-		if (skill_level != other.skill_level)
-			return false;
-		if (topic == null) {
-			if (other.topic != null)
-				return false;
-		} else if (!topic.equals(other.topic))
-			return false;
-		if (user_name == null) {
-			if (other.user_name != null)
-				return false;
-		} else if (!user_name.equals(other.user_name))
-			return false;
-		if (users == null) {
-			if (other.users != null)
-				return false;
-		} else if (!users.equals(other.users))
-			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Course [CourseID=" + c_id + ", CourseNAme=" + c_name + ", CourseDescription=" + c_description
+				+ ", CoursePreRequisite=" + c_prereq + ", CourseDuration=" + c_duration + ", SkillLevel=" + skill_level + "]";
 	}
 
 }

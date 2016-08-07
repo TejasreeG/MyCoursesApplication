@@ -4,6 +4,14 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+
+/**
+ * @author Tejasree
+ *
+ */
 
 @Entity
 @Table(name = "users", schema = "mycourses_app")
@@ -13,10 +21,22 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@NotNull(message = "Username is required, it should not be blank")
+	@Pattern(regexp = "*@*.com",message = "Enter an emailId")
 	private String user_name;
+
+	@NotNull(message = "Password  is required, it should not be blank")
+	@Pattern(regexp = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,12})", message = "Password must have atleast 1 Uppercase,1 lowercase, 1 digit, 1 Special character and with a min length of 6 and max length of 12")
 	private String pwd;
+
+	@NotNull(message = "FirstName  is required, it should not be blank")
+	@Pattern(regexp="^[A-Z]+[a-z]*$", message = "Enter Your First Name with the first letter Capitalized and numbers or special charecters are not allowed ")
 	private String first_name;
+
+	@NotNull(message = "LastName  is required, it should not be blank")
+	@Pattern(regexp="^[A-Z]+[a-z]*$", message = "Enter Your Last Name with the first letter Capitalized and numbers or special charecters are not allowed ")
 	private String last_name;
+
 	private LocalDateTime created_at;
 	private LocalDateTime changed_at;
 
@@ -80,20 +100,9 @@ public class User implements Serializable {
 	}
 
 	@Override
-	public String toString() {
-		return "User [Firstname=" + first_name + ", Lastname=" + last_name + ", username=" + user_name + "]";
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((changed_at == null) ? 0 : changed_at.hashCode());
-		result = prime * result + ((courses == null) ? 0 : courses.hashCode());
-		result = prime * result + ((created_at == null) ? 0 : created_at.hashCode());
-		result = prime * result + ((first_name == null) ? 0 : first_name.hashCode());
-		result = prime * result + ((last_name == null) ? 0 : last_name.hashCode());
-		result = prime * result + ((pwd == null) ? 0 : pwd.hashCode());
 		result = prime * result + ((user_name == null) ? 0 : user_name.hashCode());
 		return result;
 	}
@@ -107,36 +116,6 @@ public class User implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (changed_at == null) {
-			if (other.changed_at != null)
-				return false;
-		} else if (!changed_at.equals(other.changed_at))
-			return false;
-		if (courses == null) {
-			if (other.courses != null)
-				return false;
-		} else if (!courses.equals(other.courses))
-			return false;
-		if (created_at == null) {
-			if (other.created_at != null)
-				return false;
-		} else if (!created_at.equals(other.created_at))
-			return false;
-		if (first_name == null) {
-			if (other.first_name != null)
-				return false;
-		} else if (!first_name.equals(other.first_name))
-			return false;
-		if (last_name == null) {
-			if (other.last_name != null)
-				return false;
-		} else if (!last_name.equals(other.last_name))
-			return false;
-		if (pwd == null) {
-			if (other.pwd != null)
-				return false;
-		} else if (!pwd.equals(other.pwd))
-			return false;
 		if (user_name == null) {
 			if (other.user_name != null)
 				return false;
@@ -144,7 +123,10 @@ public class User implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "User [Firstname=" + first_name + ", Lastname=" + last_name + ", username=" + user_name + "]";
+	}
 
 }

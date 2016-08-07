@@ -5,6 +5,11 @@ import org.springframework.stereotype.Repository;
 
 import com.MyCourseApplication.domain.Course;
 
+/**
+ * @author Tejasree
+ *
+ */
+
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Integer> {
 	

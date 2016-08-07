@@ -2,6 +2,13 @@ package com.MyCourseApplication.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+/**
+ * @author Tejasree
+ *
+ */
 
 @Entity
 @Table(name = "topics", schema = "mycourses_app")
@@ -10,9 +17,14 @@ public class Topic implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int t_id;
+	
+	@NotNull(message="Topic name is Required, it should not be Blank")
+	@Pattern(regexp="^[A-Z]+[a-z]*$", message = "Enter the Topic Name with the first letter Capitalized and numbers or special charecters are not allowed ")
 	private String t_name;
+	
+	@NotNull(message = "Topic Duration is required, It should not be Blank")
 	private int t_duration;
 
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -60,10 +72,7 @@ public class Topic implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((course == null) ? 0 : course.hashCode());
-		result = prime * result + t_duration;
 		result = prime * result + t_id;
-		result = prime * result + ((t_name == null) ? 0 : t_name.hashCode());
 		return result;
 	}
 
@@ -76,21 +85,10 @@ public class Topic implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Topic other = (Topic) obj;
-		if (course == null) {
-			if (other.course != null)
-				return false;
-		} else if (!course.equals(other.course))
-			return false;
-		if (t_duration != other.t_duration)
-			return false;
 		if (t_id != other.t_id)
-			return false;
-		if (t_name == null) {
-			if (other.t_name != null)
-				return false;
-		} else if (!t_name.equals(other.t_name))
 			return false;
 		return true;
 	}
 
+	
 }
