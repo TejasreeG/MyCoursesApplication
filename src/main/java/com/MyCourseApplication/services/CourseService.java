@@ -29,7 +29,7 @@ public class CourseService {
 
 	public Course save(Course course) throws Exception {
 		User user = userRepository.findOne(course.getUser_name());
-		/*if(course.getC_id()== null){
+		/*if(course.getC_id()==null){
 			course.setCreated_at(LocalDateTime.now());
 		}*/
 		course.setChanged_at(LocalDateTime.now());

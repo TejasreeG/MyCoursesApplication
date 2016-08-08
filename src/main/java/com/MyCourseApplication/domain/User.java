@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import com.MyCourseApplication.validations.Ssn;
 
 /**
  * @author Tejasree
@@ -22,7 +23,7 @@ public class User implements Serializable {
 
 	@Id
 	@NotNull(message = "Username is required, it should not be blank")
-	@Pattern(regexp = "*@*.com",message = "Enter an emailId")
+	// @Pattern(regexp = "*@*.com",message = "Enter an emailId")
 	private String user_name;
 
 	@NotNull(message = "Password  is required, it should not be blank")
@@ -30,18 +31,37 @@ public class User implements Serializable {
 	private String pwd;
 
 	@NotNull(message = "FirstName  is required, it should not be blank")
-	@Pattern(regexp="^[A-Z]+[a-z]*$", message = "Enter Your First Name with the first letter Capitalized and numbers or special charecters are not allowed ")
+	@Pattern(regexp = "^[A-Z]+[a-z]*$", message = "Enter Your First Name with the first letter Capitalized and numbers or special charecters are not allowed ")
 	private String first_name;
 
 	@NotNull(message = "LastName  is required, it should not be blank")
-	@Pattern(regexp="^[A-Z]+[a-z]*$", message = "Enter Your Last Name with the first letter Capitalized and numbers or special charecters are not allowed ")
+	@Pattern(regexp = "^[A-Z]+[a-z]*$", message = "Enter Your Last Name with the first letter Capitalized and numbers or special charecters are not allowed ")
 	private String last_name;
 
+	@Ssn
+	private String ssn;
 	private LocalDateTime created_at;
 	private LocalDateTime changed_at;
 
 	@ManyToMany(mappedBy = "users")
 	private Set<Course> courses;
+	
+	public User(){
+		 		
+		 }
+		 	
+		 	public User(String username, String pwd, String firstname, String lastname, String ssn, LocalDateTime createdDate, LocalDateTime updatedDate) {
+		 		super();
+		 		
+		 		this.user_name = username;
+		 		this.first_name = firstname;
+		 		this.last_name = lastname;
+		 		this.pwd = pwd;
+		 		this.ssn = ssn;
+		 		this.setCreated_at(createdDate);
+		 		this.setChanged_at(updatedDate);
+		 	}
+		
 
 	public String getUser_name() {
 		return user_name;
@@ -73,6 +93,14 @@ public class User implements Serializable {
 
 	public void setLast_name(String last_name) {
 		this.last_name = last_name;
+	}
+
+	public String getSsn() {
+		return ssn;
+	}
+
+	public void setSsn(String ssn) {
+		this.ssn = ssn;
 	}
 
 	public LocalDateTime getCreated_at() {

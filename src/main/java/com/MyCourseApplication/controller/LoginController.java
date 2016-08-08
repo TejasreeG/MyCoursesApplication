@@ -1,6 +1,5 @@
 package com.MyCourseApplication.controller;
 
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +29,7 @@ public class LoginController {
 	 * @throws Exception
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<User> check(@Valid @RequestBody User user) throws Exception {
+	public ResponseEntity<User> check(@RequestBody User user) throws Exception {
 		User userObj = userService.findOne(user.getUser_name());
 		if(userObj != null){
 			if(userObj.getPwd().equals(user.getPwd())){
