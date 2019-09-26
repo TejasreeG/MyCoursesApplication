@@ -13,7 +13,7 @@ import com.MyCourseApplication.domain.User;
 import com.MyCourseApplication.services.UserService;
 
 /**
- * @author Tejasree
+ * @author Tejasree.G
  *
  */
 @RestController
